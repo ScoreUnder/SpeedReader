@@ -99,7 +99,7 @@ public:
     }
 
     bool contains(const QList<QString>& words) const {
-        for (const QString word : words) {
+        for (const QString& word : words) {
             if (this->contains(word)) {
                 return true;
             }

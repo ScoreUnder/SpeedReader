@@ -60,7 +60,7 @@ int SpeedReaderText::getStopWordsCount() {
     if (mStopWordsCount == -1) { // not cached
         mStopWordsCount = 0;
 
-        for (const SpeedReaderSegment segment : mDissectText) {
+        for (const SpeedReaderSegment& segment : mDissectText) {
             if (segment.isStopWordContained()) {
                 mStopWordsCount++;
             }
