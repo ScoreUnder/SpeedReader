@@ -17,8 +17,6 @@ This is a cross-platform SpeedReader developed with Qt, which I did as my first 
 - stop- delay- and break-words
 - longer words get displayed longer
 - option to stall at indentions
-- HTTP proxy settings configuration
-- RSS interface, to consume and speedread RSS and Atom feeds ([this library was used](https://github.com/vanniktech/VNTRSSReader))
 - command line interface ([options are described here](http://vanniktech.de/SpeedReader/#cli))
 - overview to see, what you've already read of your text and what is going to come
 - calculation of estimated reading time

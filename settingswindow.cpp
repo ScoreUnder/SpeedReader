@@ -38,19 +38,6 @@ SettingsWindow::SettingsWindow(QWidget* parent) : QDialog(parent), mUI(new Ui::S
         mUI->fontFamilyComboBox->addItem(family);
     }
 
-    int i = 0;
-    const int rssRefreshRate = mSettings->getRSSRefreshRate();
-    QMap<int, QString> rssRefreshRates = Settings::RSS_REFRESH_RATES;
-    QMap<int, QString>::iterator it;
-
-    for (it = rssRefreshRates.begin(); it != rssRefreshRates.end(); ++it, i++) {
-        mUI->rssRefreshRateComboBox->addItem(it.value(), QVariant(it.key()));
-
-        if (rssRefreshRate == it.key()) {
-            mUI->rssRefreshRateComboBox->setCurrentIndex(i);
-        }
-    }
-
     mUI->wordsPerMinuteSpinBox->setMinimum(Settings::MIN_WORDS_PER_MINUTE);
     mUI->wordsPerMinuteSpinBox->setMaximum(Settings::MAX_WORDS_PER_MINUTE);
 
@@ -81,43 +68,10 @@ SettingsWindow::SettingsWindow(QWidget* parent) : QDialog(parent), mUI(new Ui::S
     mUI->wordsTableWidget->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);
 
     foreach (Word word, words) this->addTableRow(word);
-
-    switch (mSettings->getHTTPNetworkProxyType()) {
-        case Settings::NO_HTTP_NETWORK_PROXY:
-            mUI->radioButtonNoHTTPNetworkProxy->setChecked(true);
-            this->on_radioButtonNoHTTPNetworkProxy_clicked();
-            break;
-        case Settings::USE_SYSTEM_HTTP_NETWORK_PROXY_CONFIGURATION:
-            mUI->radioButtonUseSystemHTTPNetworkProxyConfiguration->setChecked(true);
-            this->on_radioButtonUseSystemHTTPNetworkProxyConfiguration_clicked();
-            break;
-        case Settings::CUSTOM_HTTP_NETWORK_PROXY:
-            mUI->radioButtonCustomHTTPNetworkProxy->setChecked(true);
-            this->on_radioButtonCustomHTTPNetworkProxy_clicked();
-            break;
-    }
-
-    mUI->httpNetworkProxyServerLineEdit->setText(mSettings->getHTTPNetworkProxy().hostName());
-    mUI->httpNetworkProxyPortLineEdit->setValidator(new QIntValidator(1, 65535));
-    mUI->httpNetworkProxyPortLineEdit->setText(QString::number(mSettings->getHTTPNetworkProxy().port()));
 }
 
 SettingsWindow::~SettingsWindow() {
     delete mUI;
-}
-
-void SettingsWindow::showEvent(QShowEvent* event) {
-    Q_UNUSED(event);
-
-    mSynchronized = false;
-    mDeleteAllRSSSites = false;
-    mAddedRSSSites.clear();
-    mDeletedRSSSites.clear();
-
-    QList<QUrl> rssSites = mSettings->getRSSSites();
-    mUI->rssSiteListWidget->clear();
-
-    foreach (QUrl url, rssSites) mUI->rssSiteListWidget->addItem(url.toString());
 }
 
 void SettingsWindow::retranslate() {
@@ -171,36 +125,6 @@ void SettingsWindow::on_wordDeleteAllButton_clicked() {
     if (this->areYouSureMessageBox(tr("Delete all words"), tr("Are you sure you want to delete all words?")) == QMessageBox::Yes) mUI->wordsTableWidget->setRowCount(0);
 }
 
-void SettingsWindow::on_rssSiteAddButton_clicked() {
-    QString value = mUI->rssSiteLineEdit->text();
-
-    if (value.trimmed().length() == 0) return;
-
-    QString url = QUrl::fromUserInput(value).toString();
-
-    for (int i = 0; i < mUI->rssSiteListWidget->count(); i++) if (mUI->rssSiteListWidget->item(i)->text() == url) return;
-
-    mUI->rssSiteListWidget->addItem(url);
-    mAddedRSSSites.append(url);
-    mUI->rssSiteLineEdit->setText("");
-}
-
-void SettingsWindow::on_rssSiteDeleteButton_clicked() {
-    QList<QListWidgetItem*> selectedItems = mUI->rssSiteListWidget->selectedItems();
-
-    foreach (QListWidgetItem* listWidgetItem, selectedItems) {
-        mDeletedRSSSites.append(listWidgetItem->text());
-        delete listWidgetItem;
-    }
-}
-
-void SettingsWindow::on_rssSiteDeleteAllButton_clicked() {
-    if (this->areYouSureMessageBox(tr("Delete all RSS sites"), tr("Are you sure you want to delete all RSS sites?")) == QMessageBox::Yes) {
-        mUI->rssSiteListWidget->clear();
-        mDeleteAllRSSSites = true;
-    }
-}
-
 void SettingsWindow::done(int r) {
     QDialog::done(r);
     if (!mSynchronized) this->synchronizeWithSettings();
@@ -227,14 +151,6 @@ void SettingsWindow::synchronizeWithSettings() {
 
     mSettings->setWords(words);
 
-    QList<QUrl> rssSites;
-
-    for (int i = 0; i < mUI->rssSiteListWidget->count(); ++i) {
-        rssSites.append(QUrl::fromUserInput(mUI->rssSiteListWidget->item(i)->text()));
-    }
-
-    mSettings->setRSSSites(rssSites);
-
     mSettings->setFontFamily(mUI->fontFamilyComboBox->currentText());
     mSettings->setFontSize(mUI->fontSizeSpinBox->value());
     mSettings->setShouldDisplayLongerWordsLonger(mUI->displayLongerWordsCheckBox->isChecked());
@@ -243,29 +159,8 @@ void SettingsWindow::synchronizeWithSettings() {
     mSettings->setWordsPerMinute(mUI->wordsPerMinuteSpinBox->value());
     mSettings->setShouldGroupNumbers(mUI->numberGroupingCheckBox->isChecked());
     mSettings->setShouldStallAtIndentions(mUI->stallAtIndentionsCheckBox->isChecked());
-    mSettings->setRSSRefreshRate(mUI->rssRefreshRateComboBox->currentData().value<int>());
-
-    if (mUI->radioButtonNoHTTPNetworkProxy->isChecked()) {
-        mSettings->setHTTPNetworkProxyType(Settings::NO_HTTP_NETWORK_PROXY);
-    } else if (mUI->radioButtonUseSystemHTTPNetworkProxyConfiguration->isChecked()) {
-        mSettings->setHTTPNetworkProxyType(Settings::USE_SYSTEM_HTTP_NETWORK_PROXY_CONFIGURATION);
-    } else if (mUI->radioButtonCustomHTTPNetworkProxy->isChecked()) {
-        if (mSettings->getHTTPNetworkProxyType() != Settings::CUSTOM_HTTP_NETWORK_PROXY) mSettings->setHTTPNetworkProxyType(Settings::CUSTOM_HTTP_NETWORK_PROXY);
-
-        QNetworkProxy httpNetworkProxy;
-        httpNetworkProxy.setType(QNetworkProxy::HttpProxy);
-        httpNetworkProxy.setHostName(mUI->httpNetworkProxyServerLineEdit->text());
-        httpNetworkProxy.setPort(mUI->httpNetworkProxyPortLineEdit->text().toInt());
-
-        if (mSettings->getHTTPNetworkProxy().hostName() != httpNetworkProxy.hostName() || mSettings->getHTTPNetworkProxy().port() != httpNetworkProxy.port()) mSettings->setHTTPNetworkProxy(httpNetworkProxy);
-    }
 
     mSettings->synchronize();
-
-    if (mDeleteAllRSSSites) emit deleteAllRSSSites();
-    else emit deleteRSSSites(mDeletedRSSSites);
-
-    emit addRSSSites(mAddedRSSSites);
 }
 
 void SettingsWindow::changeBackground(QFrame* frame, QColor backgroundColor) {
@@ -293,29 +188,8 @@ void SettingsWindow::addTableRow(Word word) {
     mUI->wordsTableWidget->setItem(rowCount, 3, delayWordWidgetItem);
 }
 
-void SettingsWindow::on_radioButtonNoHTTPNetworkProxy_clicked() {
-    this->setCustomHTTPNetworkProxyInputsEnabled(false);
-}
-
-void SettingsWindow::on_radioButtonUseSystemHTTPNetworkProxyConfiguration_clicked() {
-    this->setCustomHTTPNetworkProxyInputsEnabled(false);
-}
-
-void SettingsWindow::on_radioButtonCustomHTTPNetworkProxy_clicked() {
-    this->setCustomHTTPNetworkProxyInputsEnabled(true);
-}
-
-void SettingsWindow::setCustomHTTPNetworkProxyInputsEnabled(bool enabled) {
-    mUI->httpNetworkProxyPortLineEdit->setEnabled(enabled);
-    mUI->httpNetworkProxyServerLineEdit->setEnabled(enabled);
-}
-
 void SettingsWindow::on_displayLongerWordsCheckBox_clicked(bool checked) {
     mUI->wordLengthSpinBox->setEnabled(checked);
-}
-
-void SettingsWindow::on_deleteCachePushButton_clicked() {
-    if (this->areYouSureMessageBox(tr("Delete cache"), tr("Are you sure you want to delete the cache? This includes all offline saved RSS feeds and it's images.")) == QMessageBox::Yes) emit deleteRSSCache();
 }
 
 int SettingsWindow::areYouSureMessageBox(QString title, QString message) {

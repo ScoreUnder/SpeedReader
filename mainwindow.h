@@ -24,12 +24,8 @@
 #include <QClipboard>
 
 #include "settingswindow.h"
-#include "rsswebviewdialog.h"
 #include "settings.h"
 #include "speedreadertext.h"
-#include "checkforupdates.h"
-#include "rss.h"
-#include "navigationdrawer.h"
 #include "i18n.h"
 
 namespace Ui {
@@ -44,7 +40,6 @@ public:
     ~MainWindow();
 
     void setSpeedReadingText(QString text);
-    void addRSSSite(QUrl url);
 
 public slots:
     void on_speedreadButton_clicked();
@@ -60,16 +55,7 @@ private slots:
     void changed(QString text, int speedreadTextInPercent, SpeedReaderText::SpeedReaderStatus status);
     void changedSlot(QClipboard::Mode mode);
 
-    void updatedSettings();
-    void failedToOpenDatabase();
-    void rssWebViewDialogSpeedReadSelectedText(QString text);
-    void rssWebViewDialogClosed();
-    void on_rssListWidget_itemSelectionChanged();
-    void rssDataChanged();
     void speedreadText(QString text);
-    void openInWebView(QUrl url);
-    void openInDefaultWebBrowser(QUrl url);
-    void failedToLoadRSSChannel(QString errorMessage);
 
     void on_stopButton_clicked();
     void on_cancelButton_clicked();
@@ -77,7 +63,6 @@ private slots:
     void on_plainTextEdit_textChanged();
 
     // Actions
-    void on_actionCheckForUpdates_triggered();
     void on_actionDonate_triggered();
     void on_actionReportABug_triggered();
     void on_actionSendFeedback_triggered();
@@ -85,22 +70,10 @@ private slots:
     void on_actionAboutSpeedReader_triggered();
     void on_actionForkMeOnGitHub_triggered();
 
-    // Navigation Drawer
-    void speedreadClicked();
-    void allClicked();
-    void unspeedreadClicked();
-    void todayClicked();
-    void yesterdayClicked();
-    void rssSiteClicked(QString rssSite);
-    void addRSSSiteButton_clicked();
-    void refreshButton_clicked();
-
     // Shortcuts
     void speedReadFromClipBoardShortcut();
     void sShortcut();
     void cShortcut();
-    void rShortcut();
-    void aShortcut();
     void escapeShortcut();
 
 private:
@@ -116,15 +89,6 @@ private:
 
     void updateStatusWidget();
     void updateSpeedReaderText(QString text);
-
-    CheckForUpdates* mCheckForUpdates;
-
-    NavigationDrawer* mNavigationDrawer;
-    void refreshNavigationDrawer();
-
-    RSS* mRSS;
-    RSSWebViewDialog*mRSSWebViewDialog;
-    void showRSSListView(RSSSelection rssSelection, QUrl rssSelectionRSSSite = QUrl());
 
     I18N* mI18N;
     void createLanguageMenu();

@@ -20,11 +20,11 @@
 #ifndef SETTINGS_H
 #define SETTINGS_H
 
+#include <QObject>
 #include <QList>
 #include <QString>
 #include <QColor>
 #include <QUrl>
-#include <QNetworkProxy>
 #include <QMap>
 #include <QTime>
 
@@ -46,10 +46,6 @@ class Settings : public QObject, public SpeedReaderTextDataSource {
         void updatedSettings();
 
     public:
-        static const int NO_HTTP_NETWORK_PROXY = 0;
-        static const int USE_SYSTEM_HTTP_NETWORK_PROXY_CONFIGURATION = 1;
-        static const int CUSTOM_HTTP_NETWORK_PROXY = 2;
-
         static const int MIN_FONT_SIZE = 8;
         static const int MAX_FONT_SIZE = 100;
 
@@ -61,8 +57,6 @@ class Settings : public QObject, public SpeedReaderTextDataSource {
 
         static const int MIN_WORD_LENGTH = 5;
         static const int MAX_WORD_LENGTH = 20;
-
-        static const InitializableQMap<int, QString> RSS_REFRESH_RATES;
 
         static Settings* getInstance();
 
@@ -90,11 +84,6 @@ class Settings : public QObject, public SpeedReaderTextDataSource {
         void setShouldGroupNumbers(bool shouldGroupNumbers);
         bool shouldStallAtIndentions();
         void setShouldStallAtIndentions(bool shouldStallAtIndentions);
-        bool changedHTTPNetworkProxy();
-        int getHTTPNetworkProxyType();
-        void setHTTPNetworkProxyType(int httpNetworkProxyType);
-        QNetworkProxy getHTTPNetworkProxy();
-        void setHTTPNetworkProxy(QNetworkProxy httpNetworkProxy);
 
         QList<Word> getWords();
         void setWords(QList<Word> stopWords);
@@ -103,23 +92,12 @@ class Settings : public QObject, public SpeedReaderTextDataSource {
         QList<QString> getStopWords();
         QMap<QString, int> getDelayWords();
 
-        QList<QUrl> getRSSSites();
-        void setRSSSites(QList<QUrl> rssSites);
-        bool appendRSSSite(QUrl rssSite);
-
-        bool changedRSSRefreshRate();
-        void setRSSRefreshRate(int rssRefreshRate);
-        int getRSSRefreshRate();
-
         bool autoUpdate();
         void setAutoUpdateTomorrow();
         void setAutoUpdateNeverEver();
 
         void setMainWindowGeometry(const QByteArray& geometry);
         QByteArray getMainWindowGeometry() const;
-
-        void saveRSSWebViewDialogGeometry(const QByteArray& geometry);
-        QByteArray getRSSWebViewDialogGeometry() const;
     private:
         Settings();
         Settings(Settings const&);
@@ -137,17 +115,11 @@ class Settings : public QObject, public SpeedReaderTextDataSource {
         int mWordsPerMinute;
         bool mNumberGrouping;
         bool mStallAtIndentions;
-        int mHTTPNetworkProxyType;
-        QNetworkProxy mHTTPNetworkProxy;
-        bool mChangedHTTPNetworkProxy;
 
         QList<Word> mWords;
         QList<QString> mStopWords;
         QList<QString> mBreakWords;
         QMap<QString, int> mDelayWords;
-        QList<QUrl> mRSSSites;
-        int mRSSRefreshRate;
-        bool mChangedRSSRefreshRate;
 
         void appendWord(Word word);
 
@@ -155,7 +127,6 @@ class Settings : public QObject, public SpeedReaderTextDataSource {
         void syncAutoUpdate();
 
         QByteArray mMainWindowGeometry;
-        QByteArray mRSSWebViewDialogGeometry;
 
         int minMaxValue(int min, int max, int value);
 };

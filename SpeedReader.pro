@@ -18,9 +18,6 @@
 #-------------------------------------------------
 
 QT       += core gui
-QT       += network
-QT       += webkit webkitwidgets
-QT       += sql
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
@@ -55,58 +52,26 @@ TRANSLATIONS = languages/en.ts \
 SOURCES += main.cpp\
         mainwindow.cpp \
     speedreadertext.cpp \
-    lib/VNTRSSReader/vntrsschannel.cpp \
-    lib/VNTRSSReader/vntrsscommon.cpp \
-    lib/VNTRSSReader/vntrssitem.cpp \
-    lib/VNTRSSReader/vntrssreader.cpp \
-    lib/VNTRSSReader/vntprotocolhandler.cpp \
-    lib/VNTRSSReader/vntatomhandler.cpp \
-    lib/VNTRSSReader/vntrsshandler.cpp \
     settingswindow.cpp \
     settings.cpp\
     speedreadersegment.cpp \
-    rsswebviewdialog.cpp \
-    rssitem.cpp \
-    databasehelper.cpp \
     row.cpp \
-    checkforupdates.cpp \
-    rss.cpp \
-    rssdata.cpp \
     thread.cpp \
-    navigationdrawer.cpp \
     i18n.cpp
 
 HEADERS  += mainwindow.h \
     speedreadertext.h \
     lib/vntformatter.h \
-    lib/VNTRSSReader/vntrsschannel.h \
-    lib/VNTRSSReader/vntrsscommon.h \
-    lib/VNTRSSReader/vntrssitem.h \
-    lib/VNTRSSReader/vntrssreader.h \
-    lib/VNTRSSReader/vntprotocolhandler.h \
-    lib/VNTRSSReader/vntatomhandler.h \
-    lib/VNTRSSReader/vntrsshandler.h \
-    lib/VNTRSSReader/vntprotocolspecialcase.h \
     settingswindow.h \
     settings.h\
     speedreadersegment.h \
-    rsswebviewdialog.h \
-    rssitem.h \
-    databasehelper.h \
     row.h \
-    checkforupdates.h \
-    rss.h \
-    rssdata.h \
-    rssselectiondata.h \
     thread.h \
-    navigationdrawer.h \
-    rsschannel.h \
     i18n.h \
     initializableqmap.h \
     speedreadertextdatasource.h
 
 FORMS    += mainwindow.ui \
-    settingswindow.ui \
-    rsswebviewdialog.ui
+    settingswindow.ui
 
 CONFIG += c++11

@@ -22,19 +22,6 @@
 #include <QFontDatabase>
 #include <QSettings>
 
-const InitializableQMap<int, QString> Settings::RSS_REFRESH_RATES = InitializableQMap<int, QString>()
-<< QPair<int, QString>(0, tr("never"))
-<< QPair<int, QString>(300000, tr("5 minutes"))
-<< QPair<int, QString>(600000, tr("10 minutes"))
-<< QPair<int, QString>(900000, tr("15 minutes"))
-<< QPair<int, QString>(1800000, tr("30 minutes"))
-<< QPair<int, QString>(3600000, tr("1 hour"))
-<< QPair<int, QString>(7200000, tr("2 hours"))
-<< QPair<int, QString>(14400000, tr("4 hours"))
-<< QPair<int, QString>(28800000, tr("8 hours"))
-<< QPair<int, QString>(43200000, tr("12 hours"))
-<< QPair<int, QString>(86400000, tr("24 hours"));
-
 Settings* Settings::mInstance = 0;
 
 const QString SETTINGS_TEXT_COLOR = "textColor";
@@ -50,20 +37,12 @@ const QString SETTINGS_NUMBER_GROUPING = "numberGrouping";
 const QString SETTINGS_STALL_AT_INDENTIONS = "stallAtIndentions";
 const QString SETTINGS_WORDS = "words";
 const QString SETTINGS_WORD = "word";
-const QString SETTINGS_RSS_SITES = "rss_urls";
-const QString SETTINGS_RSS_SITE = "rss_url";
 const QString SETTINGS_VALUE = "value";
 const QString SETTINGS_STOP_WORD = "stopWord";
 const QString SETTINGS_BREAK_WORD = "breakWord";
 const QString SETTINGS_DELAY_WORD = "delayWord";
-const QString SETTINGS_HTTP_NETWORK_PROXY_TYPE = "httpNetworkProxyType";
-const QString SETTINGS_HTTP_NETWORK_PROXY_SERVER = "httpNetworkProxyServer";
-const QString SETTINGS_HTTP_NETWORK_PROXY_PORT = "httpNetworkProxyPort";
-const QString SETTINGS_OPEN_EXTERNALLY_RSS_FEED_ITEM = "openExternallyRSSFeedItem";
-const QString SETTINGS_RSS_REFRESH_RATE = "rssRefreshRate";
 const QString SETTINGS_AUTO_UPDATE = "autoUpdate" + QString(APPLICATION_VERSION);
 const QString SETTINGS_MAIN_WINDOW_GEOMETRY = "mainWindowGeometry";
-const QString SETTINGS_RSS_WEB_VIEW_DIALOG_GEOMETRY = "settingsRSSWebViewDialogGeometry";
 
 const int FONT_SIZE_DEFAULT = 35;
 const bool DISPLAY_LONGER_WORDS_LONGER_DEFAULT = true;
@@ -75,10 +54,6 @@ const int WORDS_PER_MINUTE = 300;
 const QColor TEXT_BACKGROUND_COLOR_DEFAULT = QColor(255, 255, 255);
 const QColor TEXT_COLOR_DEFAULT = QColor(0, 0, 0);
 const QColor LINES_COLOR_DEFAULT = QColor(28, 153, 255);
-const QString HTTP_NETWORK_PROXY_SERVER_DEFAULT = "proxy";
-const int HTTP_NETWORK_PROXY_PORT_DEFAULT = 8080;
-const int HTTP_NETWORK_PROXY_TYPE_DEFAULT = Settings::USE_SYSTEM_HTTP_NETWORK_PROXY_CONFIGURATION;
-const int RSS_REFRESH_RATE_DEFAULT = Settings::RSS_REFRESH_RATES.lastKey();
 
 Settings* Settings::getInstance() {
     if (!mInstance) {
@@ -101,14 +76,8 @@ Settings::Settings() {
     this->setTextBackgroundColor(settings.value(SETTINGS_TEXT_BACKGROUND_COLOR, TEXT_BACKGROUND_COLOR_DEFAULT).value<QColor>());
     this->setTextColor(settings.value(SETTINGS_TEXT_COLOR, TEXT_COLOR_DEFAULT).value<QColor>());
     this->setLinesColor(settings.value(SETTINGS_LINES_COLOR, LINES_COLOR_DEFAULT).value<QColor>());
-    mHTTPNetworkProxy.setType(QNetworkProxy::HttpProxy);
-    mHTTPNetworkProxy.setHostName(settings.value(SETTINGS_HTTP_NETWORK_PROXY_SERVER, HTTP_NETWORK_PROXY_SERVER_DEFAULT).value<QString>());
-    mHTTPNetworkProxy.setPort(settings.value(SETTINGS_HTTP_NETWORK_PROXY_PORT, HTTP_NETWORK_PROXY_PORT_DEFAULT).value<quint16>());
-    this->setHTTPNetworkProxyType(settings.value(SETTINGS_HTTP_NETWORK_PROXY_TYPE, HTTP_NETWORK_PROXY_TYPE_DEFAULT).value<int>());
-    this->setRSSRefreshRate(settings.value(SETTINGS_RSS_REFRESH_RATE, RSS_REFRESH_RATE_DEFAULT).value<int>());
     mAutoUpdate = settings.value(SETTINGS_AUTO_UPDATE, 1).value<int>();
     mMainWindowGeometry = settings.value(SETTINGS_MAIN_WINDOW_GEOMETRY, QByteArray()).value<QByteArray>();
-    mRSSWebViewDialogGeometry = settings.value(SETTINGS_RSS_WEB_VIEW_DIALOG_GEOMETRY, QByteArray()).value<QByteArray>();
 
     int size = settings.beginReadArray(SETTINGS_WORDS);
     for (int i = 0; i < size; i++) {
@@ -123,18 +92,6 @@ Settings::Settings() {
     }
 
     settings.endArray();
-
-    size = settings.beginReadArray(SETTINGS_RSS_SITES);
-    for (int i = 0; i < size; i++) {
-        settings.setArrayIndex(i);
-
-        QUrl url = settings.value(SETTINGS_RSS_SITE).value<QUrl>();
-        if (url.isValid() && !mRSSSites.contains(url)) mRSSSites.append(url);
-    }
-
-    settings.endArray();
-
-    mChangedRSSRefreshRate = mChangedHTTPNetworkProxy = true;
 }
 
 void Settings::synchronize() {
@@ -150,10 +107,6 @@ void Settings::synchronize() {
     settings.setValue(SETTINGS_NUMBER_OF_WORDS, mNumberOfWords);
     settings.setValue(SETTINGS_WORDS_PER_MINUTE, mWordsPerMinute);
     settings.setValue(SETTINGS_NUMBER_GROUPING, mNumberGrouping);
-    settings.setValue(SETTINGS_HTTP_NETWORK_PROXY_TYPE, mHTTPNetworkProxyType);
-    settings.setValue(SETTINGS_HTTP_NETWORK_PROXY_SERVER, mHTTPNetworkProxy.hostName());
-    settings.setValue(SETTINGS_HTTP_NETWORK_PROXY_PORT, mHTTPNetworkProxy.port());
-    settings.setValue(SETTINGS_RSS_REFRESH_RATE, mRSSRefreshRate);
 
     settings.beginWriteArray(SETTINGS_WORDS);
     settings.remove("");
@@ -168,15 +121,6 @@ void Settings::synchronize() {
 
     settings.endArray();
 
-    settings.beginWriteArray(SETTINGS_RSS_SITES);
-    settings.remove("");
-
-    for (int i = 0; i < mRSSSites.count(); i++) {
-        settings.setArrayIndex(i);
-        settings.setValue(SETTINGS_RSS_SITE, mRSSSites.at(i));
-    }
-
-    settings.endArray();
     settings.sync();
 
     emit updatedSettings();
@@ -272,34 +216,6 @@ void Settings::setShouldStallAtIndentions(bool stallAtIndentions) {
     mStallAtIndentions = stallAtIndentions;
 }
 
-bool Settings::changedHTTPNetworkProxy() {
-    return mChangedHTTPNetworkProxy;
-}
-
-int Settings::getHTTPNetworkProxyType() {
-    return mHTTPNetworkProxyType;
-}
-
-void Settings::setHTTPNetworkProxyType(int httpNetworkProxyType) {
-    switch (httpNetworkProxyType) {
-        case NO_HTTP_NETWORK_PROXY:
-        case USE_SYSTEM_HTTP_NETWORK_PROXY_CONFIGURATION:
-        case CUSTOM_HTTP_NETWORK_PROXY:
-            mChangedHTTPNetworkProxy = mHTTPNetworkProxyType != httpNetworkProxyType;
-            mHTTPNetworkProxyType = httpNetworkProxyType;
-            break;
-    }
-}
-
-QNetworkProxy Settings::getHTTPNetworkProxy() {
-    return mHTTPNetworkProxy;
-}
-
-void Settings::setHTTPNetworkProxy(QNetworkProxy httpNetworkProxy) {
-    mChangedHTTPNetworkProxy = mHTTPNetworkProxy.hostName() != httpNetworkProxy.hostName() || mHTTPNetworkProxy.port() != httpNetworkProxy.port();
-    mHTTPNetworkProxy = httpNetworkProxy;
-}
-
 QList<Word> Settings::getWords() {
     return mWords;
 }
@@ -333,14 +249,6 @@ void Settings::setWords(QList<Word> words) {
 }
 
 
-QList<QUrl> Settings::getRSSSites() {
-    return mRSSSites;
-}
-
-void Settings::setRSSSites(QList<QUrl> rssSites) {
-    mRSSSites = rssSites;
-}
-
 void Settings::appendWord(Word word) {
     if (word.word.isEmpty()) return;
 
@@ -353,39 +261,6 @@ void Settings::appendWord(Word word) {
     if (word.delayWord > 0) mDelayWords.insert(word.word, word.delayWord);
 }
 
-bool Settings::appendRSSSite(QUrl rssSite) {
-    if (rssSite.isValid() && !mRSSSites.contains(rssSite)) {
-        mRSSSites.append(rssSite);
-
-        QSettings settings;
-        int index = settings.beginReadArray(SETTINGS_RSS_SITES);
-        settings.endArray();
-        settings.beginWriteArray(SETTINGS_RSS_SITES);
-        settings.setArrayIndex(index + 1);
-        settings.setValue(SETTINGS_RSS_SITE, rssSite);
-        settings.endArray();
-
-        return true;
-    }
-
-    return false;
-}
-
-
-bool Settings::changedRSSRefreshRate() {
-    return mChangedRSSRefreshRate;
-}
-
-void Settings::setRSSRefreshRate(int rssRefreshRate) {
-    if (!RSS_REFRESH_RATES.contains(rssRefreshRate)) rssRefreshRate = RSS_REFRESH_RATE_DEFAULT;
-
-    mChangedRSSRefreshRate = mRSSRefreshRate != rssRefreshRate;
-    mRSSRefreshRate = rssRefreshRate;
-}
-
-int Settings::getRSSRefreshRate() {
-    return mRSSRefreshRate;
-}
 
 bool Settings::autoUpdate() {
     return mAutoUpdate != 0 && QDateTime::currentMSecsSinceEpoch() / 1000L >= mAutoUpdate;
@@ -417,18 +292,6 @@ void Settings::setMainWindowGeometry(const QByteArray& geometry) {
 
 QByteArray Settings::getMainWindowGeometry() const {
     return mMainWindowGeometry;
-}
-
-void Settings::saveRSSWebViewDialogGeometry(const QByteArray& geometry) {
-    mRSSWebViewDialogGeometry = geometry;
-
-    QSettings settings;
-    settings.setValue(SETTINGS_RSS_WEB_VIEW_DIALOG_GEOMETRY, mRSSWebViewDialogGeometry);
-    settings.sync();
-}
-
-QByteArray Settings::getRSSWebViewDialogGeometry() const {
-    return mRSSWebViewDialogGeometry;
 }
 
 int Settings::minMaxValue(int min, int max, int value) {

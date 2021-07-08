@@ -34,18 +34,11 @@ namespace Ui {
 class SettingsWindow : public QDialog {
     Q_OBJECT
 
-signals:
-    void deleteRSSCache();
-    void deleteAllRSSSites();
-    void deleteRSSSites(QList<QString> rssSite);
-    void addRSSSites(QList<QString> rssSite);
-
 public:
     SettingsWindow(QWidget* parent);
     ~SettingsWindow();
 
     void retranslate();
-    void showEvent(QShowEvent* event);
 
 protected:
     void closeEvent(QCloseEvent* closeEvent);
@@ -58,21 +51,11 @@ private slots:
     void on_wordAddButton_clicked();
     void on_wordDeleteButton_clicked();
     void on_wordDeleteAllButton_clicked();
-    void on_rssSiteDeleteButton_clicked();
-    void on_rssSiteDeleteAllButton_clicked();
-    void on_rssSiteAddButton_clicked();
-    void on_radioButtonNoHTTPNetworkProxy_clicked();
-    void on_radioButtonUseSystemHTTPNetworkProxyConfiguration_clicked();
-    void on_radioButtonCustomHTTPNetworkProxy_clicked();
     void on_displayLongerWordsCheckBox_clicked(bool checked);
-    void on_deleteCachePushButton_clicked();
 
 private:
     Ui::SettingsWindow* mUI;
     Settings* mSettings;
-    QList<QString> mAddedRSSSites;
-    QList<QString> mDeletedRSSSites;
-    bool mDeleteAllRSSSites;
     bool mSynchronized;
 
     int areYouSureMessageBox(QString title, QString message);
@@ -80,7 +63,6 @@ private:
     void changeBackground(QFrame* frame, QColor backgroundColor);
     void addTableRow(Word word);
     QColor changeColorButtonClicked(QColor initialColor, QFrame* frame);
-    void setCustomHTTPNetworkProxyInputsEnabled(bool enabled);
 };
 
 #endif // SETTINGSWINDOW_H

@@ -65,10 +65,6 @@
         <translation>SpeedReader</translation>
     </message>
     <message>
-        <source>http://server.com/rss</source>
-        <translation type="vanished">http://server.com/rss</translation>
-    </message>
-    <message>
         <location filename="../mainwindow.ui" line="71"/>
         <source>Type or paste your text here to SpeedRead it</source>
         <translation>Type or paste your text here to SpeedRead it</translation>
@@ -192,44 +188,6 @@
         <translation>Ctrl+Shift+G</translation>
     </message>
     <message>
-        <source>RSS feeds</source>
-        <translation type="vanished">RSS feeds</translation>
-    </message>
-    <message>
-        <source>Un-SpeedRead</source>
-        <translation type="vanished">Un-SpeedRead</translation>
-    </message>
-    <message>
-        <source>Today</source>
-        <translation type="vanished">Today</translation>
-    </message>
-    <message>
-        <source>Yesterday</source>
-        <translation type="vanished">Yesterday</translation>
-    </message>
-    <message>
-        <source>RSS sites</source>
-        <translation type="vanished">RSS sites</translation>
-    </message>
-    <message>
-        <source>Add RSS site</source>
-        <translation type="vanished">Add RSS site</translation>
-    </message>
-    <message>
-        <source>Insert the url here:</source>
-        <translation type="vanished">Insert the url here:</translation>
-    </message>
-    <message>
-        <location filename="../mainwindow.cpp" line="396"/>
-        <source>add_rss_site</source>
-        <translation>Add RSS site</translation>
-    </message>
-    <message>
-        <location filename="../mainwindow.cpp" line="396"/>
-        <source>insert_the_url_here</source>
-        <translation>Insert the url here</translation>
-    </message>
-    <message>
         <location filename="../mainwindow.cpp" line="439"/>
         <source>segments SpeedRead</source>
         <translation>segments SpeedRead</translation>
@@ -245,16 +203,6 @@
         <translation>Estimated remaining SpeedReading time:</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="457"/>
-        <source>RSS database</source>
-        <translation>RSS database</translation>
-    </message>
-    <message>
-        <location filename="../mainwindow.cpp" line="457"/>
-        <source>Could not be loaded and opened.</source>
-        <translation>Could not be loaded and opened.</translation>
-    </message>
-    <message>
         <location filename="../mainwindow.cpp" line="323"/>
         <source>Published by</source>
         <translation>Published by</translation>
@@ -268,158 +216,6 @@
         <location filename="../mainwindow.ui" line="215"/>
         <source>Stop</source>
         <translation>Stop</translation>
-    </message>
-    <message>
-        <location filename="../mainwindow.cpp" line="461"/>
-        <source>Loading RSS feed</source>
-        <translation>Loading RSS feed</translation>
-    </message>
-</context>
-<context>
-    <name>NavigationDrawer</name>
-    <message>
-        <location filename="../navigationdrawer.cpp" line="23"/>
-        <source>SpeedRead</source>
-        <translation>SpeedRead</translation>
-    </message>
-    <message>
-        <location filename="../navigationdrawer.cpp" line="28"/>
-        <source>RSS feeds</source>
-        <translation>RSS feeds</translation>
-    </message>
-    <message>
-        <location filename="../navigationdrawer.cpp" line="34"/>
-        <source>Shortcut: R</source>
-        <translation>Shortcut: R</translation>
-    </message>
-    <message>
-        <location filename="../navigationdrawer.cpp" line="39"/>
-        <source>All</source>
-        <translation>All</translation>
-    </message>
-    <message>
-        <location filename="../navigationdrawer.cpp" line="43"/>
-        <source>Un-SpeedRead</source>
-        <translation>Un-SpeedRead</translation>
-    </message>
-    <message>
-        <location filename="../navigationdrawer.cpp" line="47"/>
-        <source>Today</source>
-        <translation>Today</translation>
-    </message>
-    <message>
-        <location filename="../navigationdrawer.cpp" line="51"/>
-        <source>Yesterday</source>
-        <translation>Yesterday</translation>
-    </message>
-    <message>
-        <location filename="../navigationdrawer.cpp" line="56"/>
-        <source>RSS sites</source>
-        <translation>RSS sites</translation>
-    </message>
-    <message>
-        <location filename="../navigationdrawer.cpp" line="62"/>
-        <source>Shortcut: A</source>
-        <translation>Shortcut: A</translation>
-    </message>
-</context>
-<context>
-    <name>RSS</name>
-    <message>
-        <location filename="../rss.cpp" line="153"/>
-        <source>SpeedRead</source>
-        <translation>SpeedRead</translation>
-    </message>
-    <message>
-        <location filename="../rss.cpp" line="158"/>
-        <source>Open in web view</source>
-        <translation>Open in web view</translation>
-    </message>
-    <message>
-        <location filename="../rss.cpp" line="163"/>
-        <source>Open in default web browser</source>
-        <translation>Open in default web browser</translation>
-    </message>
-</context>
-<context>
-    <name>RSSWebViewDialog</name>
-    <message>
-        <location filename="../rsswebviewdialog.ui" line="32"/>
-        <source>RSS Web View</source>
-        <translation>RSS Web View</translation>
-    </message>
-    <message>
-        <location filename="../rsswebviewdialog.ui" line="40"/>
-        <source>SpeedRead selected text</source>
-        <translation>SpeedRead selected text</translation>
-    </message>
-    <message>
-        <location filename="../rsswebviewdialog.ui" line="43"/>
-        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Shortcut: S&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Shortcut: S&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
-    </message>
-    <message>
-        <location filename="../rsswebviewdialog.ui" line="53"/>
-        <source>about:blank</source>
-        <translation>about:blank</translation>
-    </message>
-</context>
-<context>
-    <name>Settings</name>
-    <message>
-        <location filename="../settings.cpp" line="27"/>
-        <source>never</source>
-        <translation>never</translation>
-    </message>
-    <message>
-        <location filename="../settings.cpp" line="28"/>
-        <source>5 minutes</source>
-        <translation>5 minutes</translation>
-    </message>
-    <message>
-        <location filename="../settings.cpp" line="29"/>
-        <source>10 minutes</source>
-        <translation>10 minutes</translation>
-    </message>
-    <message>
-        <location filename="../settings.cpp" line="30"/>
-        <source>15 minutes</source>
-        <translation>15 minutes</translation>
-    </message>
-    <message>
-        <location filename="../settings.cpp" line="31"/>
-        <source>30 minutes</source>
-        <translation>30 minutes</translation>
-    </message>
-    <message>
-        <location filename="../settings.cpp" line="32"/>
-        <source>1 hour</source>
-        <translation>1 hour</translation>
-    </message>
-    <message>
-        <location filename="../settings.cpp" line="33"/>
-        <source>2 hours</source>
-        <translation>2 hours</translation>
-    </message>
-    <message>
-        <location filename="../settings.cpp" line="34"/>
-        <source>4 hours</source>
-        <translation>4 hours</translation>
-    </message>
-    <message>
-        <location filename="../settings.cpp" line="35"/>
-        <source>8 hours</source>
-        <translation>8 hours</translation>
-    </message>
-    <message>
-        <location filename="../settings.cpp" line="36"/>
-        <source>12 hours</source>
-        <translation>12 hours</translation>
-    </message>
-    <message>
-        <location filename="../settings.cpp" line="37"/>
-        <source>24 hours</source>
-        <translation>24 hours</translation>
     </message>
 </context>
 <context>
@@ -475,16 +271,6 @@
         <location filename="../settingswindow.ui" line="260"/>
         <source>Font size:</source>
         <translation>Font size:</translation>
-    </message>
-    <message>
-        <location filename="../settingswindow.ui" line="457"/>
-        <source>RSS sites</source>
-        <translation>RSS sites</translation>
-    </message>
-    <message>
-        <location filename="../settingswindow.ui" line="558"/>
-        <source>HTTP Proxy</source>
-        <translation>HTTP Proxy</translation>
     </message>
     <message>
         <location filename="../settingswindow.ui" line="102"/>
@@ -605,67 +391,6 @@
         <translation>Delete all</translation>
     </message>
     <message>
-        <location filename="../settingswindow.ui" line="395"/>
-        <source>RSS</source>
-        <translation>RSS</translation>
-    </message>
-    <message>
-        <location filename="../settingswindow.ui" line="415"/>
-        <source>RSS settings</source>
-        <translation>RSS settings</translation>
-    </message>
-    <message>
-        <location filename="../settingswindow.ui" line="424"/>
-        <location filename="../settingswindow.cpp" line="302"/>
-        <source>Delete cache</source>
-        <translation>Delete cache</translation>
-    </message>
-    <message>
-        <location filename="../settingswindow.ui" line="431"/>
-        <source>RSS refresh rate</source>
-        <translation>RSS refresh rate</translation>
-    </message>
-    <message>
-        <location filename="../settingswindow.ui" line="483"/>
-        <source>http://server.com/rss</source>
-        <translation>http://server.com/rss</translation>
-    </message>
-    <message>
-        <location filename="../settingswindow.ui" line="532"/>
-        <source>Information: RSS (version 0.91, 1.0 and 2.0) and Atom (version 1.0) are supported by this version of your SpeedReader. Please make sure, that you use a correct link.</source>
-        <translation>Information: RSS (version 0.91, 1.0 and 2.0) and Atom (version 1.0) are supported by this version of your SpeedReader. Please make sure, that you use a correct link.</translation>
-    </message>
-    <message>
-        <location filename="../settingswindow.ui" line="543"/>
-        <source>Proxy</source>
-        <translation>Proxy</translation>
-    </message>
-    <message>
-        <location filename="../settingswindow.ui" line="564"/>
-        <source>No HTTP proxy</source>
-        <translation>No HTTP proxy</translation>
-    </message>
-    <message>
-        <location filename="../settingswindow.ui" line="571"/>
-        <source>Use system HTTP proxy configuration</source>
-        <translation>Use system HTTP proxy configuration</translation>
-    </message>
-    <message>
-        <location filename="../settingswindow.ui" line="578"/>
-        <source>Custom HTTP proxy</source>
-        <translation>Custom HTTP proxy</translation>
-    </message>
-    <message>
-        <location filename="../settingswindow.ui" line="585"/>
-        <source>HTTP proxy server:</source>
-        <translation>HTTP proxy server:</translation>
-    </message>
-    <message>
-        <location filename="../settingswindow.ui" line="595"/>
-        <source>HTTP proxy port:</source>
-        <translation>HTTP proxy port:</translation>
-    </message>
-    <message>
         <location filename="../settingswindow.cpp" line="159"/>
         <source>Delete all words</source>
         <translation>Delete all words</translation>
@@ -676,21 +401,6 @@
         <translation>Are you sure you want to delete all words?</translation>
     </message>
     <message>
-        <location filename="../settingswindow.cpp" line="186"/>
-        <source>Delete all RSS sites</source>
-        <translation>Delete all RSS sites</translation>
-    </message>
-    <message>
-        <location filename="../settingswindow.cpp" line="186"/>
-        <source>Are you sure you want to delete all RSS sites?</source>
-        <translation>Are you sure you want to delete all RSS sites?</translation>
-    </message>
-    <message>
-        <location filename="../settingswindow.cpp" line="302"/>
-        <source>Are you sure you want to delete the cache? This includes all offline saved RSS feeds and it&apos;s images.</source>
-        <translation>Are you sure you want to delete the cache? This includes all offline saved RSS feeds and it&apos;s images.</translation>
-    </message>
-    <message>
         <location filename="../settingswindow.cpp" line="307"/>
         <source>Yes</source>
         <translation>Yes</translation>
@@ -699,19 +409,6 @@
         <location filename="../settingswindow.cpp" line="308"/>
         <source>No</source>
         <translation>No</translation>
-    </message>
-</context>
-<context>
-    <name>VNTRSSReader</name>
-    <message>
-        <location filename="../lib/VNTRSSReader/vntrssreader.cpp" line="80"/>
-        <source>Could not retrieve a valid XML response from %1</source>
-        <translation>Could not retrieve a valid XML response from %1</translation>
-    </message>
-    <message>
-        <location filename="../lib/VNTRSSReader/vntrssreader.cpp" line="91"/>
-        <source>is not a valid RSS feed</source>
-        <translation>is not a valid RSS feed</translation>
     </message>
 </context>
 </TS>

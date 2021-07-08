@@ -19,12 +19,11 @@
 
 #include "mainwindow.h"
 #include <QApplication>
-
+#include <QDebug>
 #include <QFile>
 
 int main(int argc, char* argv[]) {
     qRegisterMetaType<SpeedReaderText::SpeedReaderStatus>("SpeedReaderText::SpeedReaderStatus");
-    qRegisterMetaType<QList<VNTRSSChannel*> >("QList<VNTRSSChannel*>");
 
     QCoreApplication::setApplicationName(APPLICATION_NAME);
     QCoreApplication::setApplicationVersion(APPLICATION_VERSION);
@@ -61,16 +60,13 @@ int main(int argc, char* argv[]) {
             qDebug() << "Version" << APPLICATION_VERSION;
             return 0;
         } else if (string == "-h") {
-            qDebug() << QString("SpeedReader ( [-f <file> | -t <text>] [-r | -g] [ feed://<rss_atom_url> ] ) | ( [-v] | [-h] )");
+            qDebug() << QString("SpeedReader ( [-f <file> | -t <text>] [-r | -g] ) | ( [-v] | [-h] )");
             qDebug() << "-f <file>              will open every file with content type text/plain and paste the content into the textarea";
             qDebug() << "-t <text>              will automatically paste the given text into the textarea";
             qDebug() << "-s                     this actually does the same as pressing the speedread button";
-            qDebug() << "feed://<rss_atom_url>  will add the url and load its feeds automatically";
             qDebug() << "-v                     prints out the version";
             qDebug() << "-h                     will show you all commands, which are supported with your version";
             return 0;
-        } else if (string.mid(0, 7) == "feed://") {
-            w.addRSSSite(QUrl::fromUserInput(string.right(string.length() - 7)));
         }
     }
 
