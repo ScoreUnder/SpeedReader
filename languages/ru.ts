@@ -92,11 +92,6 @@
         <translation>Продолжить</translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="105"/>
-        <source>Google Play Store</source>
-        <translation>Google Play Store</translation>
-    </message>
-    <message>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Shortcut: R&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation type="vanished">&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Shortcut: R&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
@@ -140,13 +135,6 @@
         <location filename="../mainwindow.ui" line="307"/>
         <source>Ctrl+U</source>
         <translation>Ctrl+U</translation>
-    </message>
-    <message>
-        <location filename="../mainwindow.ui" line="121"/>
-        <location filename="../mainwindow.ui" line="320"/>
-        <location filename="../mainwindow.cpp" line="274"/>
-        <source>Donate</source>
-        <translation>Поддержать</translation>
     </message>
     <message>
         <source>All</source>

@@ -19,7 +19,6 @@ public:
 
     QList<Language> getLanguages();
     QString getDefaultLocale();
-    QString getBase64GooglePlayStoreIconForCurrentLanguage();
 
     void loadLanguage(const QString& language);
     void onSystemLocalChanged();

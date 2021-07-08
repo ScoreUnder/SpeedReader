@@ -63,7 +63,6 @@ private slots:
     void on_plainTextEdit_textChanged();
 
     // Actions
-    void on_actionDonate_triggered();
     void on_actionReportABug_triggered();
     void on_actionSendFeedback_triggered();
     void on_actionSpeedReader_triggered();

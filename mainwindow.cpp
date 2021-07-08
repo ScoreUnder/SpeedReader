@@ -38,7 +38,6 @@ const QString OS = "Linux";
 
 const QString coSite = ORGANIZATION_DOMAIN;
 const QString coSiteGitHub = "https://github.com/vanniktech/SpeedReader";
-const QString coSiteDonate = coSite + "Donate/";
 const QString coSiteSpeedReader = coSite + "SpeedReader/";
 const QString coSiteSpeedReaderOSTXT = coSiteSpeedReader + "latest/" + OS + ".txt";
 const QString coSiteSpeedReaderOSZIP = coSiteSpeedReader + OS + "/" + APPLICATION_VERSION;
@@ -171,8 +170,6 @@ void MainWindow::changeEvent(QEvent* event) {
             case QEvent::LanguageChange: // this event is send if a translator is loaded (will be in I18N class)
                 mUI->retranslateUi(this);
                 mSettingsWindow->retranslate();
-                mUI->donateLabel->setText(QString("<h2><a href=\"%1\">%2</a></h2>").arg(coSiteDonate, tr("Donate")));
-                mUI->googlePlayStoreLabel->setText(QString("<a href=\"%1\"><img src='data:image/png;base64,%2'></a>").arg(coSiteSpeedReader + "Android", mI18N->getBase64GooglePlayStoreIconForCurrentLanguage()));
                 break;
             case QEvent::LocaleChange: // this event is send, if the system language changes
                 mI18N->onSystemLocalChanged();
@@ -189,10 +186,6 @@ void MainWindow::closeEvent(QCloseEvent *event) {
     mSettings->setMainWindowGeometry(this->saveGeometry());
 
     QMainWindow::closeEvent(event);
-}
-
-void MainWindow::on_actionDonate_triggered() {
-    QDesktopServices::openUrl(QUrl(coSiteDonate));
 }
 
 void MainWindow::on_actionReportABug_triggered() {
