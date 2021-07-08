@@ -21,6 +21,60 @@
 
 #include <QRegExp>
 
+class TextParts {
+public:
+    static const TextParts EMPTY_TEXT_PARTS;
+
+    TextParts() {}
+
+    TextParts(const QString& string) {
+        this->add(string);
+    }
+
+    void add(const QString& string) {
+        mParts << string;
+    }
+
+    int size() const {
+        return mParts.size();
+    }
+
+    bool contains(const QString& word) const {
+        return mParts.contains(word);
+    }
+
+    bool contains(const QList<QString>& words) const {
+        for (const QString& word : words) {
+            if (this->contains(word)) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    int numberOfOccurrences(const QString& word) const {
+        return mParts.count(word);
+    }
+
+    void clear() {
+        mParts.clear();
+    }
+
+    QString toString() const {
+        QString result;
+
+        for (QString part : mParts) {
+            result.append(part).append(' '); // TODO make constant
+        }
+
+        return result.trimmed();
+    }
+
+private:
+    QStringList mParts;
+};
+
 const QString SpeedReaderText::HTML_ANCHOR_CURRENT_WORD = "myAnchorForCurrentWord";
 
 const TextParts TextParts::EMPTY_TEXT_PARTS = TextParts("");
