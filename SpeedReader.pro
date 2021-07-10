@@ -47,7 +47,8 @@ RESOURCES += resources.qrc
 
 TRANSLATIONS = languages/en.ts \
                languages/de.ts \
-               languages/cs.ts
+               languages/cs.ts \
+               languages/ru.ts
 
 SOURCES += main.cpp\
         mainwindow.cpp \
