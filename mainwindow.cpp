@@ -143,7 +143,7 @@ void MainWindow::createLanguageMenu() {
 
     QList<Language> languages = mI18N->getLanguages();
 
-    foreach (Language language, languages) {
+    foreach (Language const& language, languages) {
         QAction* action = new QAction(QIcon(language.iconFilePath), language.name, langGroup);
         action->setCheckable(true);
         action->setData(language.locale);

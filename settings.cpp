@@ -235,12 +235,12 @@ QMap<QString, int> Settings::getDelayWords() {
 void Settings::setWords(QList<Word> words) {
     mWords = words;
 
-    mStopWords = QList<QString>();
-    mBreakWords = QList<QString>();
-    mDelayWords = QMap<QString, int>();
+    mStopWords.clear();
+    mBreakWords.clear();
+    mDelayWords.clear();
 
     for (int i = 0; i < mWords.count(); i++) {
-        Word word = mWords.at(i);
+        Word const& word = mWords.at(i);
 
         if (word.stopWord) mStopWords.append(word.word);
         if (word.breakWord) mBreakWords.append(word.word);
@@ -252,7 +252,7 @@ void Settings::setWords(QList<Word> words) {
 void Settings::appendWord(Word word) {
     if (word.word.isEmpty()) return;
 
-    foreach (Word mWord, mWords) if (mWord.word == word.word) return;
+    foreach (Word const& mWord, mWords) if (mWord.word == word.word) return;
 
     mWords.append(word);
 
