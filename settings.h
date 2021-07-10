@@ -29,7 +29,6 @@
 #include <QTime>
 
 #include "speedreadersegment.h"
-#include "initializableqmap.h"
 #include "speedreadertextdatasource.h"
 
 struct Word {

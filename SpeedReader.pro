@@ -68,7 +68,6 @@ HEADERS  += mainwindow.h \
     row.h \
     thread.h \
     i18n.h \
-    initializableqmap.h \
     speedreadertextdatasource.h
 
 FORMS    += mainwindow.ui \

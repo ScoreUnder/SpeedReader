@@ -4,8 +4,6 @@
 #include <QLocale>
 #include <QApplication>
 
-#include "initializableqmap.h"
-
 const QString INT_LANG_DIR = ":/languages/";
 
 I18N::I18N(QObject *parent) : QObject(parent)
