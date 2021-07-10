@@ -23,6 +23,7 @@ Makefile*
 /build-*/*
 .qmake.stash
 *.qm
+.rcc
 
 # QtCreator
 

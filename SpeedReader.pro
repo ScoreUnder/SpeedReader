@@ -49,6 +49,7 @@ TRANSLATIONS = languages/en.ts \
                languages/de.ts \
                languages/cs.ts \
                languages/ru.ts
+QM_FILES_RESOURCE_PREFIX = languages
 
 SOURCES += main.cpp\
         mainwindow.cpp \
@@ -74,4 +75,4 @@ HEADERS  += mainwindow.h \
 FORMS    += mainwindow.ui \
     settingswindow.ui
 
-CONFIG += c++11 lrelease
+CONFIG += c++11 lrelease embed_translations

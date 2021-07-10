@@ -1,9 +1,5 @@
 <RCC>
     <qresource prefix="/">
-        <file>.qm/de.qm</file>
-        <file>.qm/en.qm</file>
-        <file>.qm/cs.qm</file>
-        <file>.qm/ru.qm</file>
         <file>languages/de.png</file>
         <file>languages/en.png</file>
         <file>languages/cs.png</file>
