@@ -21,6 +21,7 @@ ui_*.h
 Makefile*
 *-build-*
 /build-*/*
+.qmake.stash
 
 # QtCreator
 
@@ -44,3 +45,6 @@ PkgInfo
 *.Release
 
 demo/
+
+# Output binary
+/SpeedReader
