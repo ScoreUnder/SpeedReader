@@ -1,13 +1,13 @@
 <RCC>
     <qresource prefix="/">
-        <file>languages/de.qm</file>
-        <file>languages/en.qm</file>
-        <file>languages/cs.qm</file>
+        <file>.qm/de.qm</file>
+        <file>.qm/en.qm</file>
+        <file>.qm/cs.qm</file>
+        <file>.qm/ru.qm</file>
         <file>languages/de.png</file>
         <file>languages/en.png</file>
         <file>languages/cs.png</file>
-        <file>icon.png</file>
         <file>languages/ru.png</file>
-        <file>languages/ru.qm</file>
+        <file>icon.png</file>
     </qresource>
 </RCC>

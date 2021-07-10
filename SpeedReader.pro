@@ -74,4 +74,4 @@ HEADERS  += mainwindow.h \
 FORMS    += mainwindow.ui \
     settingswindow.ui
 
-CONFIG += c++11
+CONFIG += c++11 lrelease
