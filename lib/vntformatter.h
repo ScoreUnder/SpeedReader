@@ -44,10 +44,10 @@ class VNTFormatter
         }
 
         static QString formatMilliseconds(int millis) {
-            int h = floor(millis / 1000 / 60 / 60);
-            int m = floor(millis / 1000 / 60) - h * 60;
-            int s = floor((millis / 1000) % 60);
-            int ms = millis - (h * 1000 * 60 * 60) - (m * 1000 * 60) - (s * 1000);
+            int h = millis / 1000 / 60 / 60;
+            int m = (millis / 1000 / 60) % 60;
+            int s = (millis / 1000) % 60;
+            int ms = millis % 1000;
 
             return QString("%1:%2:%3:%4").arg(VNTFormatter::getFormattedTimePart(h), VNTFormatter::getFormattedTimePart(m), VNTFormatter::getFormattedTimePart(s), VNTFormatter::getFormattedMSPart(ms));
         }
