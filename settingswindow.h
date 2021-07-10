@@ -32,8 +32,6 @@ namespace Ui {
 }
 
 class SettingsWindow : public QDialog {
-    Q_OBJECT
-
 public:
     SettingsWindow(QWidget* parent);
     ~SettingsWindow();

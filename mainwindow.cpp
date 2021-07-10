@@ -52,14 +52,14 @@ MainWindow::MainWindow(QWidget* parent) : QMainWindow(parent), mSpeedReaderText(
     mUI->stopCancelButtonLayout->setAlignment(Qt::AlignLeft);
     mUI->continueButton->setVisible(false);
 
-    QObject::connect(&mSpeedReaderText, SIGNAL(changed(QString, int, SpeedReaderText::SpeedReaderStatus)), this, SLOT(changed(QString, int, SpeedReaderText::SpeedReaderStatus)));
+    QObject::connect(&mSpeedReaderText, &SpeedReaderText::changed, this, &MainWindow::changed);
     this->updateStatusWidget();
 
     mSettings = Settings::getInstance();
     mSettingsWindow = new SettingsWindow(this);
 
     mClipBoard = QApplication::clipboard();
-    QObject::connect(mClipBoard, SIGNAL(changed(QClipboard::Mode)), this, SLOT(changedSlot(QClipboard::Mode)));
+    QObject::connect(mClipBoard, &QClipboard::changed, this, &MainWindow::changedSlot);
     this->changedSlot(QClipboard::Clipboard);
 
     this->createLanguageMenu();
@@ -71,16 +71,16 @@ MainWindow::MainWindow(QWidget* parent) : QMainWindow(parent), mSpeedReaderText(
     #endif
 
     QShortcut *speedReadFromClipBoardShortcut = new QShortcut(QKeySequence("Ctrl+R"), this);
-    QObject::connect(speedReadFromClipBoardShortcut, SIGNAL(activated()), this, SLOT(speedReadFromClipBoardShortcut()));
+    QObject::connect(speedReadFromClipBoardShortcut, &QShortcut::activated, this, &MainWindow::speedReadFromClipBoardShortcut);
 
     QShortcut *sShortcut = new QShortcut(QKeySequence("S"), this);
-    QObject::connect(sShortcut, SIGNAL(activated()), this, SLOT(sShortcut()));
+    QObject::connect(sShortcut, &QShortcut::activated, this, &MainWindow::sShortcut);
 
     QShortcut *cShortcut = new QShortcut(QKeySequence("C"), this);
-    QObject::connect(cShortcut, SIGNAL(activated()), this, SLOT(cShortcut()));
+    QObject::connect(cShortcut, &QShortcut::activated, this, &MainWindow::cShortcut);
 
     QShortcut *escapeShortcut = new QShortcut(QKeySequence("Esc"), this);
-    QObject::connect(escapeShortcut, SIGNAL(activated()), this, SLOT(escapeShortcut()));
+    QObject::connect(escapeShortcut, &QShortcut::activated, this, &MainWindow::escapeShortcut);
 }
 
 MainWindow::~MainWindow() {
@@ -139,7 +139,7 @@ void MainWindow::createLanguageMenu() {
     QActionGroup* langGroup = new QActionGroup(mUI->menuLanguage);
     langGroup->setExclusive(true);
 
-    QObject::connect(langGroup, SIGNAL(triggered(QAction*)), this, SLOT(slotLanguageChanged(QAction*)));
+    QObject::connect(langGroup, &QActionGroup::triggered, this, &MainWindow::slotLanguageChanged);
 
     QList<Language> languages = mI18N->getLanguages();
 

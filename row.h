@@ -15,8 +15,6 @@ public:
 signals:
     void clicked();
 
-public slots:
-
 protected:
     void mousePressEvent(QMouseEvent* ev);
     void mouseReleaseEvent(QMouseEvent* ev);

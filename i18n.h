@@ -13,7 +13,6 @@ struct Language {
 
 class I18N : public QObject
 {
-    Q_OBJECT
 public:
     explicit I18N(QObject *parent = 0);
 
@@ -23,9 +22,6 @@ public:
     void loadLanguage(const QString& language);
     void onSystemLocalChanged();
 
-signals:
-
-public slots:
 private:
     QTranslator mTranslator;
     QString     mCurrentLanguage;
