@@ -9,6 +9,5 @@
         <file>icon.png</file>
         <file>languages/ru.png</file>
         <file>languages/ru.qm</file>
-        <file>languages/ru.ts</file>
     </qresource>
 </RCC>
