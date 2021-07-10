@@ -33,6 +33,8 @@ namespace Ui {
 }
 
 class MainWindow : public QMainWindow {
+    Q_OBJECT  // Required by UI designer
+
 public:
     explicit MainWindow(QWidget* parent = 0);
     ~MainWindow();
